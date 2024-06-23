@@ -7,32 +7,26 @@ Password for user morty:
 psql (11.18 (Debian 11.18-0+deb10u1))
 Type "help" for help.
 
-scooter_rent=# SELECT c.login,
-                      o."inDelivery" 
+scooter_rent=# SELECT c.login, 
+               COUNT(o."inDelivery") 
 FROM "Couriers" AS c 
-INNER JOIN "Orders" AS o 
-ON c.id = o."courierId" 
+INNER JOIN "Orders" AS o ON c.id = o."courierId" 
 WHERE o."inDelivery" = True 
-     and o.finished = False 
-     and o.cancelled = False;
+and o.finished = False 
+and o.cancelled = False 
+GROUP BY c.login;
 
- login  | inDelivery
---------+------------
- James  | t
- James  | t
- James  | t
- James  | t
- Robert | t
- Robert | t
- Robert | t
- Robert | t
- Robert | t
- Robert | t
- Michae | t
- Michae | t
- Michae | t
- Michae | t
-(14 rows)
+
+ login  | count
+--------+-------
+ James  |     8
+ Michae |     2
+ Robert |     8
+ Thomas |     2
+(4 rows)
+
+
+
 
 Задание №2
 
